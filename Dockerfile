@@ -1,5 +1,5 @@
 FROM debian:latest
-MAINTAINER Justifiably <justifiably@ymail.com>
+MAINTAINER Merikz <merikz.code@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
