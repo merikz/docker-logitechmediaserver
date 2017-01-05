@@ -11,9 +11,7 @@ RUN apt-get update && \
 RUN echo "deb http://www.deb-multimedia.org jessie main non-free" | tee -a /etc/apt/sources.list && \
     apt-get update && apt-get install -y --force-yes deb-multimedia-keyring
 
-# unfortunately this ends up pulling in X server and extra crud.
 # Need --force-yes because not all are signed even with above keyring (libaac etc)
-# - ffmpeg: needed for ALAC
 RUN apt-get install -y --force-yes \
     supervisor \
     perl5 \
@@ -23,18 +21,8 @@ RUN apt-get install -y --force-yes \
     flac \
     lame \
     sox \
-    wavpack \
-    ffmpeg
+    wavpack 
 
-# Dependencies for shairport (https://github.com/disaster123/shairport2_plugin/)
-RUN apt-get install -y --force-yes \
-    libcrypt-openssl-rsa-perl \
-    libio-socket-inet6-perl \
-    libwww-perl avahi-utils \
-    libio-socket-ssl-perl && \
-    curl -o /tmp/netsdp.deb http://www.inf.udec.cl/~diegocaro/rpi/libnet-sdp-perl_0.07-1_all.deb && \
-    dpkg -i /tmp/netsdp.deb && \
-    rm -f /tmp/netsdp.deb
 
 RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && \
     DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
@@ -62,7 +50,6 @@ RUN mkdir -p /mnt/state/etc && \
 RUN mkdir -p /var/log/supervisor
 COPY ./supervisord.conf /etc/
 COPY ./start-lms.sh /
-COPY avahi-daemon.conf /etc/avahi/avahi-daemon.conf
 
 VOLUME ["/mnt/state","/srv/music","/srv/playlists"]
 EXPOSE 3483 3483/udp 9000 9090 9010
