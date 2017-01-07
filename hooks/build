@@ -1,0 +1,1 @@
+docker build --build-arg LMS_URL=file:///dev/null --build-arg LMS_VERSION=nisse
