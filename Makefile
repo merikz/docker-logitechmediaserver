@@ -2,6 +2,7 @@ LMS_LATEST=$(shell wget -O - -q "http://www.mysqueezebox.com/update/?version=7.9
 NEWTAG=$(shell echo $(LMS_LATEST) | sed -e s/[^_]*_// | sed -e s/_all.deb// | sed -e s/~/-/)
 OLDTAG=$(shell cat lms_version.txt 2>/dev/null)
 REGISTRY_USER=merikz
+REPOSITORY=logitechmediaserver
 
 SHELL=/bin/bash
 
@@ -16,7 +17,7 @@ build.status: lms_version.txt Dockerfile
 	echo not finished > build.status
 	docker pull debian:latest
 	docker build \
-	 --tag $(REGISTRY_USER)/logitechmediaserver:$(NEWTAG) --tag $(REGISTRY_USER)/logitechmediaserver:latest \
+	 --tag $(REGISTRY_USER)/$(REPOSITORY):$(NEWTAG) --tag $(REGISTRY_USER)/$(REPOSITORY):latest \
 	 --build-arg LMS_URL=$(LMS_LATEST) --build-arg LMS_VERSION=$(NEWTAG)  \
 	 .
 	/bin/echo $(NEWTAG) > lms_version.txt
@@ -45,12 +46,12 @@ clean:
 	[ -e build.status ] && rm build.status || true
 	@set -x && \
 	containers=`docker ps --quiet \
-	  --filter ancestor=$(REGISTRY_USER)/logitechmediaserver:$(OLDTAG) \
-	  --filter ancestor=$(REGISTRY_USER)/logitechmediaserver:latest` ;\
+	  --filter ancestor=$(REGISTRY_USER)/$(REPOSITORY):$(OLDTAG) \
+	  --filter ancestor=$(REGISTRY_USER)/$(REPOSITORY):latest` ;\
 	[ -z "$$containers" ] || docker stop $$containers 
 	@set -x && \
 	if [ -e lms_version.txt ]; then \
-		docker rmi $(REGISTRY_USER)/logitechmediaserver:$(OLDTAG) $(REGISTRY_USER)/logitechmediaserver:latest ;\
+		docker rmi $(REGISTRY_USER)/$(REPOSITORY):$(OLDTAG) $(REGISTRY_USER)/$(REPOSITORY):latest ;\
 		rm lms_version.txt || true ;\
 	fi
 
