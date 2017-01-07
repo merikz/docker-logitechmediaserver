@@ -2,7 +2,7 @@ LMS_LATEST=$(shell wget -O - -q "http://www.mysqueezebox.com/update/?version=7.9
 NEWTAG=$(shell echo $(LMS_LATEST) | sed -e s/[^_]*_// | sed -e s/_all.deb// | sed -e s/~/-/)
 OLDTAG=$(shell cat lms_version.txt 2>/dev/null)
 REGISTRY_USER=merikz
-REPOSITORY=logitechmediaserver
+REPOSITORY=docker-logitechmediaserver
 
 SHELL=/bin/bash
 
