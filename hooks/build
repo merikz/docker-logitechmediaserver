@@ -2,6 +2,18 @@
 #This is called to override the build step at hub.docker/cloud.docker
 #At local buile, the Makefile calls this for the actual build, with EXTRAARGS.
 set -xe
+echo all ENV:; env
+echo
+echo all PARAMS:; echo "$@"
+echo
+echo all PROGS:; ls -l $(echo $PATH | tr ":" " ")
+echo
+echo some info
+echo $0
+pwd
+find . -ls
+ls -l /etc/*eleas*
+more /etc/*eleas* | cat
 
 EXTRAARGS="$@"
 LMS_LATEST=$(curl "http://www.mysqueezebox.com/update/?version=7.9.0&revision=1&geturl=1&os=deb")
