@@ -16,9 +16,12 @@ _force:
 build.status: lms_version.txt Dockerfile
 	echo not finished > build.status
 	docker pull debian:latest
-	GIT_BRANCH=$$(git rev-parse --abbrev-ref HEAD) ; \
-	TAG_LATEST_OR_DEV="latest";if [ $$GIT_BRANCH == "dev" ]; then TAGDEV="dev_";TAG_LATEST_OR_DEV="dev"; fi ;\
-	hooks/build --tag $(REGISTRY_USER)/$(REPOSITORY):"$$TAGDEV"$(NEWTAG) --tag $(REGISTRY_USER)/$(REPOSITORY):$$TAG_LATEST_OR_DEV
+	#replicate hub.docker settings for local build \
+	SOURCE_BRANCH=$$(git rev-parse --abbrev-ref HEAD) ; \
+	if [ $$SOURCE_BRANCH = "master" ]; then DOCKER_TAG="latest";else DOCKER_TAG=$$SOURCE_BRANCH; fi ; \
+	export SOURCE_BRANCH ; \
+	export DOCKER_TAG ; \
+	hooks/build 
 	/bin/echo $(NEWTAG) > lms_version.txt
 	echo SUCCESS > build.status
 	

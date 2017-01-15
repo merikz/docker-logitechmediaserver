@@ -8,8 +8,6 @@ REPOSITORY=docker-logitechmediaserver
 LMS_LATEST=$(curl "http://www.mysqueezebox.com/update/?version=7.9.0&revision=1&geturl=1&os=deb")
 NEWTAG=$( echo $LMS_LATEST | sed -e s/[^_]*_// | sed -e s/_all.deb// | sed -e s/~/-/ )
 
-# GIT_BRANCH=$$(git rev-parse --abbrev-ref HEAD)
-# TAG_LATEST_OR_DEV="latest"
 if [ $SOURCE_BRANCH != "master" ]; then
 	TAGDEV="${SOURCE_BRANCH}_"
 fi
