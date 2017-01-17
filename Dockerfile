@@ -29,10 +29,11 @@ RUN set -x \
     && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 
 # Fix UID for squeezeboxserver user to help with host volumes
+ARG LMS_UID
 RUN set -x \
     && useradd \
         --system \
-        --uid 819 \
+        --uid ${LMS_UID} \
         -M \
         -s /bin/false \
         -d /usr/share/squeezeboxserver \
