@@ -15,7 +15,7 @@ _force:
 
 build.status: lms_version.txt Dockerfile
 	echo not finished > build.status
-	docker pull debian:latest
+	docker pull debian:jessie
 	#replicate hub.docker settings for local build \
 	SOURCE_BRANCH=$$(git rev-parse --abbrev-ref HEAD) ; \
 	if [ $$SOURCE_BRANCH = "master" ]; then DOCKER_TAG="latest";else DOCKER_TAG=$$SOURCE_BRANCH; fi ; \
