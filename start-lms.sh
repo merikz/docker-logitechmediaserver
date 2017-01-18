@@ -14,4 +14,4 @@ if [ -f /mnt/state/cache/updates/server.version ]; then
     # rm -f $UPDATE 
 fi
 chown squeezeboxserver.nogroup /mnt/state /srv/playlists
-/usr/bin/supervisord -c /etc/supervisord.conf
+exec /usr/bin/supervisord -c /etc/supervisord.conf
