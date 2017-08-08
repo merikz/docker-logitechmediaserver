@@ -3,6 +3,7 @@ NEWTAG=$(shell echo $(LMS_LATEST) | sed -e s/[^_]*_// | sed -e s/_all.deb// | se
 OLDTAG=$(shell cat lms_version.txt 2>/dev/null)
 REGISTRY_USER=merikz
 REPOSITORY=docker-logitechmediaserver
+LMS_UID=1000
 
 SHELL=/bin/bash
 

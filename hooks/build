@@ -4,10 +4,10 @@
 set -xe
 REGISTRY_USER=merikz
 REPOSITORY=docker-logitechmediaserver
-LMS_UID=1000	#Userid for lms daemon, for access to music files
+LMS_UID=${LMS_UID:-1000}	#Userid for lms daemon, for access to music files
 
 LMS_LATEST=$(curl "http://www.mysqueezebox.com/update/?version=7.9.0&revision=1&geturl=1&os=deb")
-NEWTAG=$( echo $LMS_LATEST | sed -e s/[^_]*_// | sed -e s/_all.deb// | sed -e s/~/-/ )
+NEWTAG=$( echo ${LMS_LATEST##*/} | sed -e s/[^_]*_// | sed -e s/_all.deb// | sed -e s/~/-/ )
 
 if [ $SOURCE_BRANCH != "master" ]; then
 	TAGDEV="${SOURCE_BRANCH}_"
