@@ -1,15 +1,19 @@
-logitechmediaserver:
-  container_name: "logitechmediaserver"
-  image: merikz/logitechmediaserver
-  restart: always
-  ports:
-    - 9000:9000
-    - 9090:9090    
-    - 3483:3483
-    - 3483/udp:3483/udp
-    - 9010:9010
-    - 5353/udp:5353/udp
-  volumes:
-    - /srv/music/:/mnt/music:ro
-    - /srv/music/lms-playlists:/mnt/playlists
-    - /srv/lms-state:/mnt/state
+version: "3"
+services:
+  logitechmediaserver:
+    #container_name: "lms-dev"
+    hostname: lms-docker
+    image: merikz/docker-logitechmediaserver:dev
+    restart: always
+    ports:
+      - 3483:3483
+      - 9000:9000
+      - 9010:9010
+      - 9090:9090
+    volumes:
+      - /srv/music/:/mnt/music
+      - /srv/music/lms-playlists:/mnt/playlists
+      - logitechmediaserver_state:/mnt/state
+
+volumes:
+  logitechmediaserver_state:

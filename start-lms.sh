@@ -13,5 +13,5 @@ if [ -f /mnt/state/cache/updates/server.version ]; then
     # Keep a history for rollback in case
     # rm -f $UPDATE 
 fi
-chown squeezeboxserver.nogroup /mnt/state /srv/playlists
+chown squeezeboxserver.nogroup /mnt/state /mnt/playlists
 exec /usr/bin/supervisord -c /etc/supervisord.conf
