@@ -1,6 +1,13 @@
 FROM debian:jessie
 MAINTAINER Merikz <merikz.code@gmail.com>
 
+ENV TZ Europe/Stockholm
+RUN set -x \
+    && echo $TZ > /etc/timezone \
+    && rm /etc/timezone \
+    && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata
+
 RUN set -x \
     && echo "deb http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list \
     && apt-get update \
@@ -21,6 +28,7 @@ RUN set -x \
         sox \
         wavpack \
         curl \
+        libio-socket-ssl-perl \
     && apt-get clean
 
 
@@ -62,7 +70,7 @@ RUN set -x \
 COPY ./supervisord.conf /etc/
 COPY ./start-lms.sh /
 
-VOLUME ["/mnt/state","/srv/music","/srv/playlists"]
+VOLUME ["/mnt/state","/mnt/music","/mnt/playlists"]
 EXPOSE 3483 3483/udp 9000 9090 9010
 
 CMD ["/start-lms.sh"]
