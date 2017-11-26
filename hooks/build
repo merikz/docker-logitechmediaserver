@@ -5,7 +5,7 @@ set -xe
 REGISTRY_USER=merikz
 REPOSITORY=docker-logitechmediaserver
 LMS_UID=${LMS_UID:-1000}	#Userid for lms daemon, for access to music files
-LMS_VERSION_CHECK_URL=${LMS_VERSION_CHECK_URL:-"http://www.mysqueezebox.com/update/?version=7.9.0&revision=1&geturl=1&os=deb"}
+LMS_VERSION_CHECK_URL=${LMS_VERSION_CHECK_URL:-"http://www.mysqueezebox.com/update/?version=7.9.1&revision=1&geturl=1&os=deb"}
 
 LMS_LATEST=$(curl "$LMS_VERSION_CHECK_URL")
 NEWTAG=$( echo ${LMS_LATEST##*/} | sed -e s/[^_]*_// | sed -e s/_all.deb// | sed -e s/~/-/ )
