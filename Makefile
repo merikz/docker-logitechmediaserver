@@ -1,6 +1,6 @@
-LMS_VERSION_CHECK_URL="http://www.mysqueezebox.com/update/?version=7.9.1&revision=1&geturl=1&os=deb"
+LMS_VERSION_CHECK_URL="http://www.mysqueezebox.com/update/?version=7.9.2&revision=1&geturl=1&os=debamd64"
 LMS_LATEST=$(shell wget -O - -q $(LMS_VERSION_CHECK_URL))
-NEWTAG=$(shell echo $(LMS_LATEST) | sed -e s/[^_]*_// | sed -e s/_all.deb// | sed -e s/~/-/)
+NEWTAG=$(shell echo $(LMS_LATEST) | sed -e s/[^_]*_// | sed -e s/_[^_]*.deb// | sed -e s/~/-/)
 OLDTAG=$(shell cat lms_version.txt 2>/dev/null)
 REGISTRY_USER=merikz
 REPOSITORY=docker-logitechmediaserver

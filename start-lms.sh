@@ -5,13 +5,13 @@ if [ ! -d /mnt/state/etc ]; then
    chown -R squeezeboxserver.nogroup /mnt/state/etc
 fi
 # Automatically update to newer version if exists
-if [ -f /mnt/state/cache/updates/server.version ]; then
-    cd /mnt/state/cache/updates
+updatesDir=/mnt/logs/cache/updates
+if [ -f $updatesDir/server.version ]; then
+    cd $updatesDir
     UPDATE=`cat server.version`
-    dpkg -i $UPDATE
-    mv server.version this-server.version
-    # Keep a history for rollback in case
-    # rm -f $UPDATE 
+    dpkg -i $UPDATE && \
+        mv server.version this-server.version && \
+        rm -f $UPDATE
 fi
-chown squeezeboxserver.nogroup /mnt/state /mnt/playlists
+chown squeezeboxserver.nogroup /mnt/state /mnt/playlists /mnt/logs
 exec /usr/bin/supervisord -c /etc/supervisord.conf

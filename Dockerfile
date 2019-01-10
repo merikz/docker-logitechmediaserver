@@ -70,7 +70,7 @@ RUN set -x \
 COPY ./supervisord.conf /etc/
 COPY ./start-lms.sh /
 
-VOLUME ["/mnt/state","/mnt/music","/mnt/playlists"]
+VOLUME ["/mnt/state","/mnt/music","/mnt/playlists","/mnt/logs"]
 EXPOSE 3483 3483/udp 9000 9090 9010
 
 CMD ["/start-lms.sh"]

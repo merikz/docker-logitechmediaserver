@@ -13,7 +13,11 @@ services:
     volumes:
       - /srv/music/:/mnt/music
       - /srv/music/lms-playlists:/mnt/playlists
-      - logitechmediaserver_state:/mnt/state
+      - logitechmediaserver-logs:/mnt/logs
+      - logitechmediaserver-state:/mnt/state
 
 volumes:
-  logitechmediaserver_state:
+  logitechmediaserver-logs:
+    external: true
+  logitechmediaserver-state:
+    external: true
